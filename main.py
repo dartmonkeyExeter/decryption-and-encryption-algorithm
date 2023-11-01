@@ -67,7 +67,7 @@ def encrypt():
         previous_val = encrypted[idx - 1]
 
         summed = letter_to_number[current] + letter_to_number[previous_val]
-        if summed >= 26:
+        if summed > 26:
             summed -= 26
 
         encrypted += number_to_letter[summed]
