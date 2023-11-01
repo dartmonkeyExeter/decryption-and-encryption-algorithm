@@ -63,14 +63,15 @@ def encrypt():
     for idx, i in enumerate(input_string):
         if idx == 0:
             continue
-        current = input_string[idx]
-        previous_val = encrypted[idx - 1]
-
-        summed = letter_to_number[current] + letter_to_number[previous_val]
-        if summed > 26:
-            summed -= 26
-
-        encrypted += number_to_letter[summed]
+        try:
+            current = input_string[idx]
+            previous_val = encrypted[idx - 1]
+            summed = letter_to_number[current] + letter_to_number[previous_val]
+            if summed > 26:
+                summed -= 26
+            encrypted += number_to_letter[summed]
+        except KeyError:
+            encrypted += i
     print(encrypted)
 
 
@@ -81,14 +82,15 @@ def decrypt():
     for idx, i in enumerate(input_string):
         if idx == len(input_string) - 1:
             break
-        current = input_string[idx]
-        next_val = input_string[idx + 1]
-
-        subtracted = letter_to_number[current] - letter_to_number[next_val]
-        if subtracted <= 0:
-            subtracted += 26
-
-        decrypted += number_to_letter[subtracted]
+        try:
+            current = input_string[idx]
+            next_val = input_string[idx + 1]
+            subtracted = letter_to_number[current] - letter_to_number[next_val]
+            if subtracted <= 0:
+                subtracted += 26
+            decrypted += number_to_letter[subtracted]
+        except KeyError:
+            decrypted += i
     decrypted += input_string[-1]
     decrypted = decrypted[::-1]
     print(decrypted)
